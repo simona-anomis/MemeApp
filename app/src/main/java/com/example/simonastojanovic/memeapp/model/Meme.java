@@ -1,5 +1,8 @@
-package com.example.simonastojanovic.memeapp;
+package com.example.simonastojanovic.memeapp.model;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Meme {
 

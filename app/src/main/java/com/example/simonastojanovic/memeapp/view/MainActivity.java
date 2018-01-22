@@ -1,35 +1,25 @@
 package com.example.simonastojanovic.memeapp.view;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.simonastojanovic.memeapp.R;
 import com.example.simonastojanovic.memeapp.model.Meme;
-import com.example.simonastojanovic.memeapp.model.MemesItem;
-import com.example.simonastojanovic.memeapp.network.ApiInterface;
-import com.example.simonastojanovic.memeapp.network.RetrofitClient;
-import com.example.simonastojanovic.memeapp.presenter.MemePresenter;
-import com.example.simonastojanovic.memeapp.presenter.MemePresenterImpl;
-
+import com.example.simonastojanovic.memeapp.viewmodel.MemeViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MemeAdapter memeAdapter;
-    private MemePresenter presenter = new MemePresenterImpl(this);
-
-    private ApiInterface apiInterface;
-
+    private MemeViewModel memeViewModel;
 
 
     @Override
@@ -37,12 +27,21 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpRecyclerView();
-
-
-        presenter.fetchMemes();
-
+        memeViewModel = ViewModelProviders.of(this).get(MemeViewModel.class);
+        observeViewModel();
+        memeViewModel.getMemeList();
     }
 
+    private void observeViewModel() {
+        memeViewModel.getMemeLiveData().observe(this, new Observer<ArrayList<Meme>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<Meme> memes) {
+                if (memes != null) {
+                    memeAdapter.addResults(memes);
+                }
+            }
+        });
+    }
 
 
     private void setUpRecyclerView() {
@@ -51,11 +50,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerView.setLayoutManager(layoutManager);
         memeAdapter = new MemeAdapter(this);
         recyclerView.setAdapter(memeAdapter);
-    }
-
-    @Override
-    public void onMemesFetched(ArrayList<Meme> memes) {
-        memeAdapter.addResults(memes);
     }
 
 }

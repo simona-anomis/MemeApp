@@ -1,21 +1,28 @@
 package com.example.simonastojanovic.memeapp.viewmodel;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.simonastojanovic.memeapp.model.MemesItem;
-import com.example.simonastojanovic.memeapp.network.ApiInterface;
+import com.example.simonastojanovic.memeapp.model.Meme;
+import com.example.simonastojanovic.memeapp.model.MemeRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MemeViewModel extends ViewModel {
 
-    private LiveData<List<MemesItem>> memesList;
-    private ApiInterface apiInterface;
-    private final String LOG_TAG = getClass().getName();
+    private MemeRepository memeRepository;
 
 
+    public MemeViewModel() {
+        this.memeRepository = new MemeRepository();
 
+    }
 
+    public LiveData<ArrayList<Meme>> getMemeLiveData() {
+        return memeRepository.getMemeListData();
+    }
+
+    public void getMemeList() {
+        memeRepository.getMemeList();
+    }
 }

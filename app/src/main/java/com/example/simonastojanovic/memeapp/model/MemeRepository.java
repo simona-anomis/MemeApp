@@ -3,7 +3,6 @@ package com.example.simonastojanovic.memeapp.model;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.example.simonastojanovic.memeapp.network.ApiInterface;
 import com.example.simonastojanovic.memeapp.network.RetrofitClient;
@@ -11,19 +10,22 @@ import com.example.simonastojanovic.memeapp.network.RetrofitClient;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MemeRepository {
 
     private final String LOG_TAG = getClass().getName();
     private ApiInterface apiInterface;
-    private MutableLiveData<ArrayList<Meme>> memeResponseLiveData = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<MemesItem>> memeResponseLiveData = new MutableLiveData<>();
 
     public MemeRepository() {
-
     }
-    public LiveData<ArrayList<Meme>> getMemeListData() {
+
+    public LiveData<ArrayList<MemesItem>> getMemeListData() {
         return memeResponseLiveData;
     }
 
@@ -31,31 +33,42 @@ public class MemeRepository {
 
         apiInterface = RetrofitClient.getClient().create(ApiInterface.class);
 
-        Call<Response> call = apiInterface.getMemes();
+        Observable<Response> memes = apiInterface.getMemes().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
 
-        call.enqueue(new Callback<Response>() {
+        memes.subscribe(new Observer<Response>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onResponse(Call<com.example.simonastojanovic.memeapp.model.Response> call, retrofit2.Response<com.example.simonastojanovic.memeapp.model.Response> response) {
-                Data memes = response.body().getData();
-
-                List<MemesItem> memeList = memes.getMemes();
-
-                ArrayList<Meme> memeArrayList = new ArrayList<>();
-
-                for (MemesItem meme : memeList) {
-                    memeArrayList.add(new Meme(meme.getUrl()));
                 }
 
-                memeResponseLiveData.setValue(memeArrayList);
-            }
+                    @Override
+                    public void onNext(Response response) {
+                    Data memes = response.getData();
 
-            @Override
-            public void onFailure(Call<com.example.simonastojanovic.memeapp.model.Response> call, Throwable t) {
-                Log.e(LOG_TAG, "Request failed");
+                    List<MemesItem> memeList = memes.getMemes();
+
+                    ArrayList<MemesItem> memeArrayList = new ArrayList<>();
+
+                    for (int i = 0; i < memeList.size(); i++) {
+                        MemesItem memeItem = new MemesItem();
+                        memeItem.setUrl(memeList.get(i).getUrl());
+                        memeArrayList.add(memeItem);
+                    }
+
+                    memeResponseLiveData.setValue(memeArrayList);
+
+                }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                }
+
+                    @Override
+                    public void onComplete() {
+
             }
         });
     }
-
-
 }

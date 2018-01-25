@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.simonastojanovic.memeapp.R;
-import com.example.simonastojanovic.memeapp.model.Meme;
+import com.example.simonastojanovic.memeapp.model.MemesItem;
 import com.example.simonastojanovic.memeapp.viewmodel.MemeViewModel;
 
 import java.util.ArrayList;
@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void observeViewModel() {
-        memeViewModel.getMemeLiveData().observe(this, new Observer<ArrayList<Meme>>() {
+        memeViewModel.getMemeLiveData().observe(this, new Observer<ArrayList<MemesItem>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Meme> memes) {
+            public void onChanged(@Nullable ArrayList<MemesItem> memes) {
                 if (memes != null) {
                     memeAdapter.addResults(memes);
                 }

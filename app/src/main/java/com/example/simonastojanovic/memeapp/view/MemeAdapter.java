@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.simonastojanovic.memeapp.model.Meme;
 import com.example.simonastojanovic.memeapp.R;
+import com.example.simonastojanovic.memeapp.model.MemesItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import java.util.List;
 public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeAdapterViewHolder> {
 
     private Context context;
-    private ArrayList<Meme> memeList;
+    private ArrayList<MemesItem> memeList;
 
 
     public MemeAdapter(Context context) {
         this.context = context;
-        memeList = new ArrayList<Meme>();
+        memeList = new ArrayList<MemesItem>();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeAdapterVie
 
     @Override
     public void onBindViewHolder(MemeAdapterViewHolder holder, int position) {
-        Picasso.with(context).load(memeList.get(position).getImageUrl()).into(holder.memeImageView);
+        Picasso.with(context).load(memeList.get(position).getUrl()).into(holder.memeImageView);
 
     }
 
@@ -45,7 +45,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeAdapterVie
         return memeList.size();
     }
 
-    void addResults(List<Meme> results) {
+    void addResults(List<MemesItem> results) {
         memeList.addAll(results);
         notifyDataSetChanged();
     }

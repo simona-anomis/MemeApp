@@ -3,8 +3,8 @@ package com.example.simonastojanovic.memeapp.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.simonastojanovic.memeapp.model.Meme;
 import com.example.simonastojanovic.memeapp.model.MemeRepository;
+import com.example.simonastojanovic.memeapp.model.MemesItem;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class MemeViewModel extends ViewModel {
 
     }
 
-    public LiveData<ArrayList<Meme>> getMemeLiveData() {
+    public LiveData<ArrayList<MemesItem>> getMemeLiveData() {
         return memeRepository.getMemeListData();
     }
 

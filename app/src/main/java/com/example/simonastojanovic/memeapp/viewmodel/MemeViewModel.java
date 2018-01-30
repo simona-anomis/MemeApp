@@ -1,28 +1,35 @@
 package com.example.simonastojanovic.memeapp.viewmodel;
 
-import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.simonastojanovic.memeapp.model.MemeRepository;
+import com.example.simonastojanovic.memeapp.domain.FetchLiveDataUseCase;
+import com.example.simonastojanovic.memeapp.domain.FetchLiveDataUseCaseImpl;
+import com.example.simonastojanovic.memeapp.domain.FetchMemeUseCase;
+import com.example.simonastojanovic.memeapp.domain.FetchMemeUseCaseImpl;
 import com.example.simonastojanovic.memeapp.model.MemesItem;
 
 import java.util.ArrayList;
 
 public class MemeViewModel extends ViewModel {
 
-    private MemeRepository memeRepository;
+    private FetchLiveDataUseCase fetchLiveDataUseCase;
+    private FetchMemeUseCase fetchMemeUseCase;
 
 
     public MemeViewModel() {
-        this.memeRepository = new MemeRepository();
-
+        this.fetchLiveDataUseCase = new FetchLiveDataUseCaseImpl();
+        this.fetchMemeUseCase = new FetchMemeUseCaseImpl();
     }
 
-    public LiveData<ArrayList<MemesItem>> getMemeLiveData() {
-        return memeRepository.getMemeListData();
+    public MutableLiveData<ArrayList<MemesItem>> getMemeLiveData() {
+        return fetchLiveDataUseCase.getLiveData();
     }
+
+
 
     public void getMemeList() {
-        memeRepository.getMemeList();
+        fetchMemeUseCase.execute(getMemeLiveData());
     }
+
 }

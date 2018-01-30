@@ -23,7 +23,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeAdapterVie
 
     public MemeAdapter(Context context) {
         this.context = context;
-        memeList = new ArrayList<MemesItem>();
+        memeList = new ArrayList<>();
     }
 
     @Override

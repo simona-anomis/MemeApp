@@ -14,16 +14,23 @@ import com.example.simonastojanovic.memeapp.viewmodel.MemeViewModel;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MemeAdapter memeAdapter;
-    private MemeViewModel memeViewModel;
+
+    @Inject
+    MemeViewModel memeViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpRecyclerView();

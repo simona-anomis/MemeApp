@@ -17,10 +17,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FetchMemeUseCaseImpl implements FetchMemeUseCase {
 
-    MemeRepository memeRepository = new MemeRepository();
+    private MemeRepository memeRepository = new MemeRepository();
 
     @Override
-    public void execute(final MutableLiveData<ArrayList<MemesItem>> memeResponseLiveData) {
+    public void execute(final MutableLiveData<ArrayList<MemesItem>> memeLiveData) {
         memeRepository.getMemeList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -44,7 +44,7 @@ public class FetchMemeUseCaseImpl implements FetchMemeUseCase {
                             memeArrayList.add(memeItem);
                         }
 
-                        memeResponseLiveData.setValue(memeArrayList);
+                        memeLiveData.setValue(memeArrayList);
 
                     }
 
@@ -57,7 +57,6 @@ public class FetchMemeUseCaseImpl implements FetchMemeUseCase {
                     public void onComplete() {
 
                     }
-
                 });
     }
 }

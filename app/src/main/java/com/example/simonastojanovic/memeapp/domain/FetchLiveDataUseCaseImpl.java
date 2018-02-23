@@ -11,7 +11,7 @@ public class FetchLiveDataUseCaseImpl implements FetchLiveDataUseCase{
     private MutableLiveData<ArrayList<MemesItem>> memeLiveData = new MutableLiveData<>();
 
     @Override
-    public MutableLiveData<ArrayList<MemesItem>> getLiveData() {
+    public MutableLiveData<ArrayList<MemesItem>> getMemeLiveData() {
         return memeLiveData;
     }
 }

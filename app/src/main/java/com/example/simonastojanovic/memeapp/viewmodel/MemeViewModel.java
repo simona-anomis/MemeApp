@@ -16,20 +16,16 @@ public class MemeViewModel extends ViewModel {
     private FetchLiveDataUseCase fetchLiveDataUseCase;
     private FetchMemeUseCase fetchMemeUseCase;
 
-
     public MemeViewModel() {
         this.fetchLiveDataUseCase = new FetchLiveDataUseCaseImpl();
         this.fetchMemeUseCase = new FetchMemeUseCaseImpl();
     }
 
     public MutableLiveData<ArrayList<MemesItem>> getMemeLiveData() {
-        return fetchLiveDataUseCase.getLiveData();
+        return fetchLiveDataUseCase.getMemeLiveData();
     }
 
-
-
-    public void getMemeList() {
+    public void getMemeApiList() {
         fetchMemeUseCase.execute(getMemeLiveData());
     }
-
 }

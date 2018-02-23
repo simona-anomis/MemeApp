@@ -1,5 +1,7 @@
 package com.example.simonastojanovic.memeapp.view;
 
+import android.arch.lifecycle.ViewModelProviders;
+
 import com.example.simonastojanovic.memeapp.viewmodel.MemeViewModel;
 
 import dagger.Module;
@@ -9,12 +11,7 @@ import dagger.Provides;
 public class MainActivityModule {
 
     @Provides
-    MainActivity provideMainActivity(MainActivity mainActivity) {
-        return mainActivity;
-    }
-
-    @Provides
-    MemeViewModel provideMemeViewModel(){
-    return new MemeViewModel();
+    MemeViewModel provideMemeViewModel(MainActivity mainActivity) {
+        return ViewModelProviders.of(mainActivity).get(MemeViewModel.class);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.simonastojanovic.memeapp.view;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,16 +26,14 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     MemeViewModel memeViewModel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpRecyclerView();
-        memeViewModel = ViewModelProviders.of(this).get(MemeViewModel.class);
         observeViewModel();
-        memeViewModel.getMemeList();
+        memeViewModel.getMemeApiList();
     }
 
     private void observeViewModel() {
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setUpRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         memeAdapter = new MemeAdapter(this);

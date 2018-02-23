@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 public interface FetchLiveDataUseCase {
 
-    MutableLiveData<ArrayList<MemesItem>> getLiveData();
+    MutableLiveData<ArrayList<MemesItem>> getMemeLiveData();
 
 }

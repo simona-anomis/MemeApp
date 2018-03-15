@@ -6,8 +6,6 @@ import java.util.*
 
 interface FetchLiveDataUseCase {
 
-//    fun getMemeLiveData(): MutableLiveData<ArrayList<MemesItem>>
-
     var memeLiveData: MutableLiveData<ArrayList<MemesItem>>
 
 }

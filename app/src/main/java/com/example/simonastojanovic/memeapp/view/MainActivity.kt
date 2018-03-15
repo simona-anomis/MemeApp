@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
+    @Inject
     lateinit var memeAdapter: MemeAdapter
 
     @Inject
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpRecyclerView() {
         recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        memeAdapter = MemeAdapter(this)
         recycler_view.adapter = memeAdapter
     }
 

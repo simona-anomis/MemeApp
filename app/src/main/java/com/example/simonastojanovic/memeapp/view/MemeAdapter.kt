@@ -14,11 +14,7 @@ import java.util.*
 
 class MemeAdapter(private val context: Context) : RecyclerView.Adapter<MemeAdapter.MemeAdapterViewHolder>() {
 
-    private val memeList: ArrayList<MemesItem>
-
-    init {
-        memeList = ArrayList()
-    }
+    private val memeList: ArrayList<MemesItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemeAdapterViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.list_item_view, parent, false)

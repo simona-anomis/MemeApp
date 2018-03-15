@@ -7,8 +7,6 @@ import java.util.*
 
 class FetchLiveDataUseCaseImpl : FetchLiveDataUseCase {
 
-//    override fun getMemeLiveData(): MutableLiveData<ArrayList<MemesItem>> = memeLiveData
-
     override var memeLiveData = MutableLiveData<ArrayList<MemesItem>>()
 
 }

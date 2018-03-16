@@ -5,6 +5,6 @@ import io.reactivex.Observable
 
 interface MemeRepository {
 
-    val memeList: Observable<List<Meme>>
+    fun getMemes(): Observable<List<Meme>>
 
 }

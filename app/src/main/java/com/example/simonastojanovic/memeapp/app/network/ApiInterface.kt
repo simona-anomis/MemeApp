@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface ApiInterface {
 
-    @get:GET("get_memes")
-    val memes: Observable<Response>
+    @GET("get_memes")
+    fun getMemes(): Observable<Response>
 
 }

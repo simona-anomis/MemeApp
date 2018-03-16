@@ -2,6 +2,7 @@ package com.example.simonastojanovic.memeapp.memelist.domain
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import com.example.simonastojanovic.memeapp.app.model.Meme
 import com.example.simonastojanovic.memeapp.memelist.repository.MemeRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,7 +17,7 @@ class FetchMemeUseCaseImpl @Inject constructor(
     override fun liveData(): LiveData<List<Meme>> = memeLiveData
 
     override fun execute() {
-        memeRepository.memeList
+        memeRepository.getMemes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccess, this::onError)

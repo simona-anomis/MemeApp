@@ -12,17 +12,17 @@ class MemeRepositoryImpl @Inject constructor(
         private val apiInterface: ApiInterface
 ) : MemeRepository {
 
-    override val memeList: Observable<List<Meme>>
-        get() = apiInterface.memes
-                .map {
-                    val memeList = it.data!!.memes
+    override fun getMemes(): Observable<List<Meme>> =
+            apiInterface.getMemes()
+                    .map {
+                        val memeList = it.data!!.memes
 
-                    val memes = arrayListOf<Meme>()
+                        val memes = arrayListOf<Meme>()
 
-                    memeList.forEach {
-                        memes.add(Meme(it.url))
+                        memeList.forEach {
+                            memes.add(Meme(it.url))
+                        }
+                        return@map memes
                     }
-                    return@map memes
-                }
 
 }

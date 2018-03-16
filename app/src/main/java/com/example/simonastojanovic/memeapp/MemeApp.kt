@@ -3,7 +3,7 @@ package com.example.simonastojanovic.memeapp
 import android.app.Activity
 import android.app.Application
 
-import com.example.simonastojanovic.memeapp.injection.DaggerAppComponent
+import com.example.simonastojanovic.memeapp.app.injection.DaggerAppComponent
 
 import javax.inject.Inject
 

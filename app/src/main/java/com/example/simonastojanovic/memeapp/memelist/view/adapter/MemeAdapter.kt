@@ -1,20 +1,18 @@
-package com.example.simonastojanovic.memeapp.view
+package com.example.simonastojanovic.memeapp.memelist.view.adapter
 
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.example.simonastojanovic.memeapp.R
-import com.example.simonastojanovic.memeapp.model.MemesItem
-import com.squareup.picasso.Picasso
+import com.example.simonastojanovic.memeapp.app.model.Meme
+import com.example.simonastojanovic.memeapp.memelist.view.adapter.viewholder.MemeAdapterViewHolder
 import java.util.*
 
-class MemeAdapter(private val context: Context) : RecyclerView.Adapter<MemeAdapter.MemeAdapterViewHolder>() {
+class MemeAdapter(private val context: Context) : RecyclerView.Adapter<MemeAdapterViewHolder>() {
 
-    private val memeList: ArrayList<MemesItem> = ArrayList()
+    private val memeList: ArrayList<Meme> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemeAdapterViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.list_item_view, parent, false)
@@ -23,24 +21,17 @@ class MemeAdapter(private val context: Context) : RecyclerView.Adapter<MemeAdapt
     }
 
     override fun onBindViewHolder(holder: MemeAdapterViewHolder, position: Int) {
-        Picasso.with(context).load(memeList[position].url).into(holder.memeImageView)
-
+        val meme = memeList[position]
+        holder.showImage(meme.url)
     }
-
 
     override fun getItemCount(): Int {
         return memeList.size
     }
 
-    internal fun addResults(results: List<MemesItem>) {
+    internal fun addResults(results: List<Meme>) {
         memeList.addAll(results)
         notifyDataSetChanged()
     }
 
-
-    class MemeAdapterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        val memeImageView: ImageView = view.findViewById(R.id.meme_image_view) as ImageView
-
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.simonastojanovic.memeapp.model
+package com.example.simonastojanovic.memeapp.app.network.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

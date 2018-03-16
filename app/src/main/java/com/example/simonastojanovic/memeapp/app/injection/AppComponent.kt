@@ -1,4 +1,4 @@
-package com.example.simonastojanovic.memeapp.injection
+package com.example.simonastojanovic.memeapp.app.injection
 
 import android.app.Application
 

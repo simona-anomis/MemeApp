@@ -1,7 +1,7 @@
-package com.example.simonastojanovic.memeapp.injection
+package com.example.simonastojanovic.memeapp.app.injection
 
-import com.example.simonastojanovic.memeapp.view.MainActivity
-import com.example.simonastojanovic.memeapp.view.MainActivityModule
+import com.example.simonastojanovic.memeapp.memelist.view.MainActivity
+import com.example.simonastojanovic.memeapp.memelist.injection.MainActivityModule
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
